@@ -206,14 +206,10 @@ export default function AgendaPage() {
 
       {/* Same container as the nav, so the agenda lines up under its title. */}
       <main
-        className="mx-auto w-full max-w-5xl px-6 pb-20 pt-28"
+        className="mx-auto w-full max-w-5xl px-6 pb-20 pt-26"
         style={{ fontFamily: MONTREAL }}
       >
-        <p className={cn(MUTED, "text-[13px] leading-4 tabular-nums")}>
-          Sep 24. 2026
-        </p>
-
-        <div className="mt-10 flex max-w-[620px] flex-col gap-14">
+        <div className="flex max-w-[620px] flex-col gap-14">
           <Section label="Past work">
             <div className="flex flex-col gap-8 sm:gap-10">
               {PAST_WORK.map((job) => (
