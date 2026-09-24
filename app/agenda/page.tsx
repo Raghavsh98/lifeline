@@ -116,8 +116,8 @@ function SectionLabel({ children }: { children: ReactNode }) {
 }
 
 function LineText({ line }: { line: Line }) {
-  const className = cn(INK, "text-[9.5px] leading-[12px] tracking-[0.01em]")
-  if (!line.href) return <p className={className}>{line.text}</p>
+  const className = "text-[9.5px] leading-[12px] tracking-[0.01em]"
+  if (!line.href) return <p className={cn(INK, className)}>{line.text}</p>
   return (
     <a
       href={line.href}
@@ -125,7 +125,7 @@ function LineText({ line }: { line: Line }) {
       rel="noopener noreferrer"
       className={cn(
         className,
-        "w-fit decoration-current/40 underline-offset-2 hover:underline",
+        "w-fit text-[#9A9A9A] underline decoration-[#D4D4D4] underline-offset-2 transition-colors duration-200 hover:text-[#1A1A1A] hover:decoration-[#1A1A1A] dark:text-zinc-500 dark:decoration-zinc-700 dark:hover:text-zinc-100 dark:hover:decoration-zinc-100",
       )}
     >
       {line.text}
@@ -216,8 +216,10 @@ export default function AgendaPage() {
       )}
       style={{ fontFamily: MONTREAL }}
     >
-      {/* The 567px Figma frame, centered; 80px side padding on desktop. */}
-      <main className="mx-auto w-full max-w-[567px] px-4 pb-20 pt-10 sm:px-20 sm:pt-[max(2.5rem,calc(50dvh-398px))]">
+      {/* The 567px Figma frame with 80px side padding. On wide screens it
+          sits in the left half, its right edge on the center line, as in
+          the Figma layout; narrower, it centers. */}
+      <main className="mx-auto w-full max-w-[567px] px-4 pb-20 pt-10 sm:px-20 sm:pt-[max(2.5rem,calc(50dvh-398px))] min-[1134px]:ml-[calc(50%-567px)]">
         <header className="flex items-start justify-between gap-6">
           <h1
             className={cn(
