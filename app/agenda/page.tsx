@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import type { ReactNode } from "react"
 import { Bitcount_Grid_Single, Inter } from "next/font/google"
-import Link from "next/link"
+import { PageTabs } from "@/components/page-tabs"
 import { cn } from "@/lib/utils"
 
 const bitcount = Bitcount_Grid_Single({
@@ -24,8 +24,10 @@ export const metadata: Metadata = {
 const MONTREAL =
   "'PP Neue Montreal', 'Neue Montreal', var(--font-inter), sans-serif"
 
+// Type follows the Lifeline scale: 15px names, 14px body, 11px labels.
 const INK = "text-[#1A1A1A] dark:text-zinc-100"
-const MUTED = "text-[#757575] dark:text-zinc-500"
+const MUTED = "text-zinc-500"
+const BODY = "text-[14px] leading-[1.55] tracking-[-0.01em]"
 
 type Line = { text: string; href?: string; indent?: Line[] }
 
@@ -34,10 +36,8 @@ interface Job {
   role: ReactNode
   meta?: string
   lines: Line[]
-  /** Gap between the lines — 6px for a list, 10px for separate items. */
+  /** Gap between the lines — tight for a list, looser for separate items. */
   spread?: boolean
-  /** ZS's two-line role wants a wider name column. */
-  wide?: boolean
 }
 
 const TRUU_DECK = "https://www.figma.com/slides/WlcJDT1EQhdcj65GiAZoea"
@@ -84,7 +84,6 @@ const PAST_WORK: Job[] = [
         <br />→ UX Designer
       </>
     ),
-    wide: true,
     lines: [{ text: "-" }],
   },
   {
@@ -106,8 +105,8 @@ function SectionLabel({ children }: { children: ReactNode }) {
     <h2
       className={cn(
         bitcount.className,
-        INK,
-        "flex h-[13px] w-[65px] shrink-0 items-center whitespace-nowrap text-[9.5px] uppercase leading-[13px] tracking-[0.02em]",
+        MUTED,
+        "flex h-[23px] w-[104px] shrink-0 items-center whitespace-nowrap text-[11px] uppercase leading-4 tracking-[0.08em]",
       )}
     >
       {children}
@@ -116,7 +115,7 @@ function SectionLabel({ children }: { children: ReactNode }) {
 }
 
 function LineText({ line }: { line: Line }) {
-  const className = "text-[9.5px] leading-[12px] tracking-[0.01em]"
+  const className = BODY
   if (!line.href) return <p className={cn(INK, className)}>{line.text}</p>
   return (
     <a
@@ -125,7 +124,7 @@ function LineText({ line }: { line: Line }) {
       rel="noopener noreferrer"
       className={cn(
         className,
-        "w-fit text-[#9A9A9A] underline decoration-[#D4D4D4] underline-offset-2 transition-colors duration-200 hover:text-[#1A1A1A] hover:decoration-[#1A1A1A] dark:text-zinc-500 dark:decoration-zinc-700 dark:hover:text-zinc-100 dark:hover:decoration-zinc-100",
+        "w-fit text-zinc-400 underline decoration-zinc-300 underline-offset-2 transition-colors duration-200 hover:text-[#1A1A1A] hover:decoration-[#1A1A1A] dark:text-zinc-500 dark:decoration-zinc-700 dark:hover:text-zinc-100 dark:hover:decoration-zinc-100",
       )}
     >
       {line.text}
@@ -137,40 +136,28 @@ function JobRow({ job }: { job: Job }) {
   return (
     <div
       className={cn(
-        "flex flex-col gap-3 sm:flex-row sm:items-start",
-        job.wide ? "sm:gap-8" : "sm:gap-10",
+        "flex flex-col gap-2 sm:flex-row sm:items-start sm:gap-8",
       )}
     >
-      <div
-        className={cn(
-          "flex shrink-0 flex-col items-start",
-          job.wide ? "sm:w-[169px]" : "sm:w-[95px]",
-        )}
-      >
-        <h3 className={cn(INK, "text-[10px] font-bold leading-[12px]")}>
+      <div className="flex shrink-0 flex-col items-start sm:w-[176px]">
+        <h3 className={cn(INK, "text-[15px] font-semibold leading-[1.55]")}>
           {job.company}
         </h3>
-        <p className={cn(INK, "text-[9.5px] leading-[14px] tracking-[0.02em]")}>
-          {job.role}
-        </p>
-        {job.meta && (
-          <p className={cn(MUTED, "text-[9.5px] leading-[14px] tracking-[0.02em]")}>
-            {job.meta}
-          </p>
-        )}
+        <p className={cn(INK, BODY)}>{job.role}</p>
+        {job.meta && <p className={cn(MUTED, BODY)}>{job.meta}</p>}
       </div>
 
       <div
         className={cn(
-          "flex min-w-0 flex-1 flex-col items-start",
-          job.spread ? "gap-2.5" : "gap-1.5",
+          "flex min-w-0 flex-1 flex-col items-start sm:pt-px",
+          job.spread ? "gap-2" : "gap-1",
         )}
       >
         {job.lines.map((line) => (
           <div key={line.text} className="contents">
             <LineText line={line} />
             {line.indent && (
-              <div className="flex flex-col items-start gap-1.5 pl-5">
+              <div className="flex flex-col items-start gap-1 pl-5">
                 {line.indent.map((sub) => (
                   <LineText key={sub.text} line={sub} />
                 ))}
@@ -185,11 +172,11 @@ function JobRow({ job }: { job: Job }) {
 
 function AgendaItems({ items }: { items: string[] }) {
   return (
-    <ul className="flex flex-col gap-4">
+    <ul className="flex flex-col gap-2">
       {items.map((item) => (
         <li
           key={item}
-          className={cn(INK, "text-[10px] leading-[14px] tracking-[0.02em]")}
+          className={cn(INK, BODY)}
         >
           {item}
         </li>
@@ -200,7 +187,7 @@ function AgendaItems({ items }: { items: string[] }) {
 
 function Section({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <section className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-5">
+    <section className="flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-5">
       <SectionLabel>{label}</SectionLabel>
       <div className="min-w-0 flex-1">{children}</div>
     </section>
@@ -216,15 +203,16 @@ export default function AgendaPage() {
       )}
       style={{ fontFamily: MONTREAL }}
     >
-      {/* The 567px Figma frame with 80px side padding. On wide screens it
-          sits in the left half, its right edge on the center line, as in
-          the Figma layout; narrower, it centers. */}
-      <main className="mx-auto w-full max-w-[567px] px-4 pb-20 pt-10 sm:px-20 sm:pt-[max(2.5rem,calc(50dvh-398px))] min-[1134px]:ml-[calc(50%-567px)]">
-        <header className="flex items-start justify-between gap-6">
+      {/* On wide screens the frame starts where the Figma layout puts it,
+          567px left of center; narrower, it centers. */}
+      <main className="mx-auto w-full max-w-[740px] px-4 pb-20 pt-8 sm:px-20 sm:pt-16 min-[1134px]:ml-[calc(50%-567px)]">
+        <PageTabs current="/agenda" />
+
+        <header className="mt-12 flex items-start justify-between gap-6">
           <h1
             className={cn(
               INK,
-              "max-w-[182px] text-[14px] font-bold capitalize leading-[17px]",
+              "text-[20px] font-semibold capitalize leading-[1.25] tracking-[-0.01em]",
             )}
             style={{ fontFamily: "var(--font-inter), sans-serif" }}
           >
@@ -232,19 +220,14 @@ export default function AgendaPage() {
             <br />
             for Arcads
           </h1>
-          <p
-            className={cn(
-              INK,
-              "shrink-0 sm:mr-[-11px] text-[9px] leading-[11px] tracking-[0.02em]",
-            )}
-          >
+          <p className={cn(MUTED, "shrink-0 pt-1 text-[13px] leading-4 tabular-nums")}>
             Sep 24. 2026
           </p>
         </header>
 
-        <div className="mt-[61px] flex flex-col gap-20">
+        <div className="mt-12 flex flex-col gap-14">
           <Section label="Past work">
-            <div className="flex flex-col gap-14 sm:gap-20">
+            <div className="flex flex-col gap-8 sm:gap-10">
               {PAST_WORK.map((job) => (
                 <JobRow key={job.company} job={job} />
               ))}
@@ -260,15 +243,6 @@ export default function AgendaPage() {
           </Section>
         </div>
 
-        <Link
-          href="/"
-          className={cn(
-            MUTED,
-            "mt-20 inline-block text-[9.5px] leading-[14px] tracking-[0.02em] transition-colors duration-200 hover:text-[#1A1A1A] dark:hover:text-zinc-100",
-          )}
-        >
-          ← Lifeline
-        </Link>
       </main>
     </div>
   )

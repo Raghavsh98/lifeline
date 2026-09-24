@@ -6,6 +6,7 @@ import {
   LifelineStage,
 } from "@/components/lifeline-shell"
 import { CompanyLogos } from "@/components/company-logos"
+import { PageTabs } from "@/components/page-tabs"
 import { ThemeSwitcher } from "@/components/theme-switcher"
 import { raghavLifeline } from "@/lib/raghav"
 
@@ -25,6 +26,7 @@ export default function Home() {
         }
         logoLabel="Raghav Sharma — Lifeline"
       >
+        <PageTabs current="/" />
         <a
           href="https://x.com/raghavpink"
           target="_blank"
