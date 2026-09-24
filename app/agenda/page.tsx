@@ -1,18 +1,7 @@
 import type { Metadata } from "next"
 import type { ReactNode } from "react"
-import { Bitcount_Grid_Single, Inter } from "next/font/google"
 import { SiteNav } from "@/components/site-nav"
 import { cn } from "@/lib/utils"
-
-const bitcount = Bitcount_Grid_Single({
-  subsets: ["latin"],
-  weight: "400",
-})
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-})
 
 export const metadata: Metadata = {
   title: "Agenda — Raghav <> Dylan",
@@ -20,14 +9,13 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 }
 
-/** PP Neue Montreal is licensed; Inter stands in where it isn't installed. */
-const MONTREAL =
-  "'PP Neue Montreal', 'Neue Montreal', var(--font-inter), sans-serif"
-
-// Type follows the Lifeline scale: 15px names, 14px body, 11px labels.
-const INK = "text-[#1A1A1A] dark:text-zinc-100"
-const MUTED = "text-zinc-500"
-const BODY = "text-[14px] leading-[1.55] tracking-[-0.01em]"
+// Same type and color as the Timeline: Geist, 15px names, 14px zinc-500
+// body, 11px uppercase labels, underlined links that darken on hover.
+const NAME = "text-[15px] font-medium leading-[1.55] text-black dark:text-white"
+const BODY =
+  "text-[14px] leading-[1.55] tracking-[-0.01em] text-zinc-500 dark:text-zinc-400"
+const LABEL =
+  "text-[11px] font-medium uppercase leading-4 tracking-[0.08em] text-zinc-500 dark:text-zinc-600"
 
 type Line = { text: string; href?: string; indent?: Line[] }
 
@@ -104,9 +92,8 @@ function SectionLabel({ children }: { children: ReactNode }) {
   return (
     <h2
       className={cn(
-        bitcount.className,
-        MUTED,
-        "flex h-[23px] w-[104px] shrink-0 items-center whitespace-nowrap text-[11px] uppercase leading-4 tracking-[0.08em]",
+        LABEL,
+        "flex h-[23px] w-[104px] shrink-0 items-center whitespace-nowrap",
       )}
     >
       {children}
@@ -116,7 +103,7 @@ function SectionLabel({ children }: { children: ReactNode }) {
 
 function LineText({ line }: { line: Line }) {
   const className = BODY
-  if (!line.href) return <p className={cn(INK, className)}>{line.text}</p>
+  if (!line.href) return <p className={className}>{line.text}</p>
   return (
     <a
       href={line.href}
@@ -124,7 +111,7 @@ function LineText({ line }: { line: Line }) {
       rel="noopener noreferrer"
       className={cn(
         className,
-        "w-fit text-zinc-400 underline decoration-zinc-300 underline-offset-2 transition-colors duration-200 hover:text-[#1A1A1A] hover:decoration-[#1A1A1A] dark:text-zinc-500 dark:decoration-zinc-700 dark:hover:text-zinc-100 dark:hover:decoration-zinc-100",
+        "w-fit underline decoration-zinc-400 underline-offset-2 transition-colors duration-300 hover:text-black hover:decoration-zinc-600 dark:decoration-zinc-700 dark:hover:text-white dark:hover:decoration-zinc-400",
       )}
     >
       {line.text}
@@ -140,11 +127,13 @@ function JobRow({ job }: { job: Job }) {
       )}
     >
       <div className="flex shrink-0 flex-col items-start sm:w-[176px]">
-        <h3 className={cn(INK, "text-[15px] font-semibold leading-[1.55]")}>
+        <h3 className={NAME}>
           {job.company}
         </h3>
-        <p className={cn(INK, BODY)}>{job.role}</p>
-        {job.meta && <p className={cn(MUTED, BODY)}>{job.meta}</p>}
+        <p className={BODY}>{job.role}</p>
+        {job.meta && (
+          <p className={cn(BODY, "text-zinc-400 dark:text-zinc-600")}>{job.meta}</p>
+        )}
       </div>
 
       <div
@@ -174,10 +163,7 @@ function AgendaItems({ items }: { items: string[] }) {
   return (
     <ul className="flex flex-col gap-2">
       {items.map((item) => (
-        <li
-          key={item}
-          className={cn(INK, BODY)}
-        >
+        <li key={item} className={BODY}>
           {item}
         </li>
       ))}
@@ -196,18 +182,12 @@ function Section({ label, children }: { label: string; children: ReactNode }) {
 
 export default function AgendaPage() {
   return (
-    <div
-      className={cn(
-        inter.variable,
-        "min-h-dvh bg-white antialiased transition-colors duration-300 dark:bg-black",
-      )}
-    >
+    <div className="min-h-dvh bg-white antialiased transition-colors duration-300 dark:bg-black">
       <SiteNav title="Raghav <> Dylan for Arcads" current="/agenda" />
 
       {/* Same container as the nav, so the agenda lines up under its title. */}
       <main
         className="mx-auto w-full max-w-5xl px-6 pb-20 pt-26"
-        style={{ fontFamily: MONTREAL }}
       >
         <div className="flex max-w-[620px] flex-col gap-14">
           <Section label="Past work">
