@@ -15,7 +15,7 @@ export function PageTabs({
   className?: string
 }) {
   return (
-    <div className={cn("flex items-center gap-6", className)}>
+    <div className={cn("flex items-center gap-4 sm:gap-6", className)}>
       {TABS.map((tab) => {
         const active = tab.href === current
         return (

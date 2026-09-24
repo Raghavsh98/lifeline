@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import type { ReactNode } from "react"
 import { Bitcount_Grid_Single, Inter } from "next/font/google"
-import { PageTabs } from "@/components/page-tabs"
+import { SiteNav } from "@/components/site-nav"
 import { cn } from "@/lib/utils"
 
 const bitcount = Bitcount_Grid_Single({
@@ -201,31 +201,19 @@ export default function AgendaPage() {
         inter.variable,
         "min-h-dvh bg-white antialiased transition-colors duration-300 dark:bg-black",
       )}
-      style={{ fontFamily: MONTREAL }}
     >
-      {/* On wide screens the frame starts where the Figma layout puts it,
-          567px left of center; narrower, it centers. */}
-      <main className="mx-auto w-full max-w-[740px] px-4 pb-20 pt-8 sm:px-20 sm:pt-16 min-[1134px]:ml-[calc(50%-567px)]">
-        <PageTabs current="/agenda" />
+      <SiteNav title="Raghav <> Dylan for Arcads" current="/agenda" />
 
-        <header className="mt-12 flex items-start justify-between gap-6">
-          <h1
-            className={cn(
-              INK,
-              "text-[20px] font-semibold capitalize leading-[1.25] tracking-[-0.01em]",
-            )}
-            style={{ fontFamily: "var(--font-inter), sans-serif" }}
-          >
-            Raghav &lt;&gt; Dylan,
-            <br />
-            for Arcads
-          </h1>
-          <p className={cn(MUTED, "shrink-0 pt-1 text-[13px] leading-4 tabular-nums")}>
-            Sep 24. 2026
-          </p>
-        </header>
+      {/* Same container as the nav, so the agenda lines up under its title. */}
+      <main
+        className="mx-auto w-full max-w-5xl px-6 pb-20 pt-28"
+        style={{ fontFamily: MONTREAL }}
+      >
+        <p className={cn(MUTED, "text-[13px] leading-4 tabular-nums")}>
+          Sep 24. 2026
+        </p>
 
-        <div className="mt-12 flex flex-col gap-14">
+        <div className="mt-10 flex max-w-[620px] flex-col gap-14">
           <Section label="Past work">
             <div className="flex flex-col gap-8 sm:gap-10">
               {PAST_WORK.map((job) => (
