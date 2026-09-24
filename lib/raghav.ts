@@ -48,7 +48,7 @@ const record = defineLifeline({
     },
     2022: {
       id: "civic",
-      events: ["Civic service design for the Delhi Government, logo included."],
+      events: ["Civic service design for the Delhi Government."],
     },
     2023: {
       id: "uw",
