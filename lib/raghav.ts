@@ -63,24 +63,28 @@ const record = defineLifeline({
       ],
     },
     2024: {
-      id: "intuit",
-      companies: [{ id: "intuit", name: "Intuit" }],
+      id: "intuit-birla",
+      companies: [
+        { id: "intuit", name: "Intuit" },
+        { id: "birla", name: "Birla AI Labs" },
+      ],
       events: [
         [
           { type: "text", value: "Product Designer at " },
           { type: "link", value: "Intuit", href: "https://quickbooks.intuit.com" },
           { type: "text", value: " on QuickBooks." },
         ],
+        [
+          { type: "text", value: "Product Designer at " },
+          { type: "link", value: "Birla AI Labs", href: "https://birlaailabs.com" },
+          { type: "text", value: "." },
+        ],
       ],
     },
     2025: {
-      id: "birla-truu",
-      companies: [
-        { id: "birla", name: "Birla AI Labs" },
-        { id: "truu", name: "TruU" },
-      ],
+      id: "truu",
+      companies: [{ id: "truu", name: "TruU" }],
       events: [
-        "Product Designer at Birla AI Labs.",
         [
           { type: "text", value: "Joined " },
           { type: "link", value: "TruU", href: "https://truu.ai" },

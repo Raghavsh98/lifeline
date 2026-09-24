@@ -5,6 +5,7 @@ import {
   LifelineShell,
   LifelineStage,
 } from "@/components/lifeline-shell"
+import { CompanyLogos } from "@/components/company-logos"
 import { ThemeSwitcher } from "@/components/theme-switcher"
 import { raghavLifeline } from "@/lib/raghav"
 
@@ -25,14 +26,16 @@ export default function Home() {
         logoLabel="Raghav Sharma — Lifeline"
       >
         <a
-          href="https://www.linkedin.com/in/raghavsharma98/"
+          href="https://x.com/raghavpink"
           target="_blank"
           rel="noopener noreferrer"
           className={LINK_CLASS}
         >
-          LinkedIn
+          X
         </a>
       </LifelineNav>
+
+      <CompanyLogos />
 
       <LifelineStage>
         <Lifeline
@@ -45,14 +48,6 @@ export default function Home() {
 
       <LifelineFooter>
         <ThemeSwitcher />
-        <a
-          href="https://github.com/evilrabbit/lifeline"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={LINK_CLASS}
-        >
-          Built with Lifeline by Evil Rabbit
-        </a>
       </LifelineFooter>
     </LifelineShell>
   )

@@ -130,14 +130,14 @@ export function LifelineDesktop({
       >
         <div
           ref={trackRef}
-          className="relative flex w-max items-start will-change-transform [--lifeline-people-top:calc(14.5rem+40px)] [--lifeline-rail:5rem]"
+          className="relative flex w-max items-start will-change-transform [--lifeline-people-top:calc(14.5rem+4px)] [--lifeline-rail:2.75rem]"
           style={{ width: trackWidth }}
         >
           {/*
             LIFELINE_STICKY_SHIELD_WIDTH reserves this column at the head of
             the track, and the column has to actually paint it: once the
             track scrolls, marker text passes underneath and would otherwise
-            read straight through "Age" and "Years".
+            read straight through "Years".
 
             `bg-white dark:bg-black` to match the framing the shell puts
             around this — reframe the page on a different surface and this

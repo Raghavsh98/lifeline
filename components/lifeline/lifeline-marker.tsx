@@ -28,7 +28,6 @@ export const LifelineMarkerColumn = forwardRef<
 >(function LifelineMarkerColumn(
   {
     marker,
-    birthYear,
     minWidth,
     animateIntro = false,
     introDelay = 0,
@@ -36,7 +35,6 @@ export const LifelineMarkerColumn = forwardRef<
   },
   ref,
 ) {
-  const age = marker.age ?? marker.year - birthYear
   const people = aggregateLifelinePeople(marker)
   const hoverImage = useLifelineHoverImage()
   const fireworks = useLifelineFireworks()
@@ -65,10 +63,6 @@ export const LifelineMarkerColumn = forwardRef<
         />
 
         <div className="flex w-full flex-col items-start text-left">
-          <p className="mb-5 h-4 text-[11px] font-medium leading-4 tabular-nums text-zinc-500 transition-colors duration-300 group-hover:text-black dark:text-zinc-600 dark:group-hover:text-zinc-400">
-            {age}
-          </p>
-
           <p className="mb-6 h-5 whitespace-nowrap text-[15px] font-medium leading-5 tabular-nums text-zinc-500 transition-colors duration-300 group-hover:text-black dark:group-hover:text-white">
             {marker.label ?? marker.year}
           </p>

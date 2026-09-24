@@ -164,7 +164,6 @@ const LifelineVerticalEntry = forwardRef<
 >(function LifelineVerticalEntry(
   {
     marker,
-    birthYear,
     animateIntro = false,
     introDelay = 0,
     introDuration = 420,
@@ -172,7 +171,6 @@ const LifelineVerticalEntry = forwardRef<
   },
   ref,
 ) {
-  const age = marker.age ?? marker.year - birthYear
   const people = aggregateLifelinePeople(marker)
   const photos = marker.photos ?? []
   const hasContent = hasMarkerContent(marker) || photos.length > 0
@@ -212,9 +210,7 @@ const LifelineVerticalEntry = forwardRef<
         }}
       >
         <div className={`${GRID_CLASS} items-center`}>
-          <p className="text-right text-[11px] font-medium leading-4 tabular-nums text-zinc-500 transition-colors duration-300 dark:text-zinc-600">
-            {age}
-          </p>
+          <div aria-hidden="true" />
 
           <div className="flex items-center justify-center">
             <RailTick />
@@ -438,9 +434,7 @@ export function LifelineVertical({
       style={showIntro ? introStyle : undefined}
     >
       <div className={cn(`${GRID_CLASS} mb-6 items-end`, showIntro && "lifeline-labels-intro")}>
-        <p className="text-right text-[11px] font-medium uppercase leading-4 tracking-[0.08em] text-zinc-500 transition-colors duration-300 dark:text-zinc-600">
-          Age
-        </p>
+        <div aria-hidden="true" />
         <div aria-hidden="true" />
         <p className="text-[11px] font-medium uppercase leading-5 tracking-[0.08em] text-zinc-500 transition-colors duration-300 dark:text-zinc-600">
           Years
