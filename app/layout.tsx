@@ -9,9 +9,9 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "Lifeline",
+  title: "Raghav Sharma — Lifeline",
   description:
-    "A timeline component for the stories that unfold over time — a career, a company, a journey. Ships as a shadcn registry.",
+    "The life and career of Raghav Sharma — from engineering to product design.",
 };
 
 export default function RootLayout({
